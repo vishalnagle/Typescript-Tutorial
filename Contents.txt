@@ -1,0 +1,11 @@
+
+Typescript Complete Tutorial
+
+Tutorial URL - https://www.youtube.com/watch?v=gieEQFIfgYc&t=25s
+w3schools Tutorial - https://www.w3schools.com/typescript/index.php
+
+CONTENTS-
+
+1. Start Here
+2. Basic Types 
+3. Arrays and Objects
