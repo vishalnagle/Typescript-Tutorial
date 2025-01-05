@@ -9,3 +9,17 @@ CONTENTS-
 1. Start Here
 2. Basic Types 
 3. Arrays and Objects
+4. Functions
+5. Assertions
+6. Classes
+7. Index signatures and keyof assertions 
+8. Generics
+9. Utility types 
+10. Vite + typescript 
+11. Typescript project 
+12. React + typescript 
+13. React hooks + typescript 
+14. useReducer + typescript 
+15. useContext + typescript 
+16. React typescript project 1
+17. React typescript project 2
