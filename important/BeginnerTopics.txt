@@ -1,0 +1,293 @@
+
+TypeScript for Beginners
+
+1. TypeScript Basics
+
+What is TypeScript?
+TypeScript is a superset of JavaScript that adds static typing, meaning you can specify variable types during development. 
+It helps catch errors early and makes code easier to understand and maintain.
+
+Advantages of TypeScript over JavaScript:
+
+Static typing.
+Better tooling support (e.g., IntelliSense).
+Easier debugging and maintenance.
+Supports modern JavaScript features.
+
+Setting up a TypeScript Environment:
+
+Install Node.js.
+Run npm install -g typescript to install TypeScript globally.
+Create a .ts file and compile it with tsc filename.ts.
+
+TypeScript Compiler and Configuration:
+tsc: Compiles TypeScript files into JavaScript.
+tsconfig.json: A configuration file to customize the compiler.
+
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "strict": true
+  }
+}
+
+--------------------------------------------------------------
+
+2. Type Annotations
+
+Primitive Types:
+
+let name: string = "John";
+let age: number = 30;
+let isActive: boolean = true;
+let data: null = null;
+let notAssigned: undefined = undefined;
+
+
+Special Types:
+
+let anything: any = "Could be anything";
+let unsure: unknown = "Unknown type";
+let noValue: void = undefined;
+
+// Function that never returns
+function throwError(): never {
+  throw new Error("This will never return");
+}
+
+-------------------------------------------------------------------
+
+3. Interfaces and Type Aliases
+
+Defining Interfaces:
+
+interface Person {
+  name: string;
+  age: number;
+  isEmployed?: boolean; // Optional property
+}
+
+const john: Person = { name: "John", age: 30 };
+
+Type Aliases:
+
+type ID = number | string;
+let userId: ID = 123;
+
+Readonly Properties:
+
+interface ReadOnlyExample {
+  readonly id: number;
+}
+
+const item: ReadOnlyExample = { id: 1 };
+// item.id = 2; // Error
+
+--------------------------------------------------------------------
+
+4. Functions
+
+Typed Parameters and Return Types:
+
+function add(a: number, b: number): number {
+  return a + b;
+}
+
+Optional and Default Parameters:
+
+function greet(name: string = "Guest"): string {
+  return `Hello, ${name}`;
+}
+
+Function Overloads:
+
+function format(value: number): string;
+function format(value: string): string;
+function format(value: any): string {
+  return value.toString();
+}
+
+-------------------------------------------------------------------------
+
+5. Enums
+
+Numeric and String Enums:
+
+enum Direction {
+  Up = 1,
+  Down,
+  Left,
+  Right,
+}
+
+let dir: Direction = Direction.Up;
+
+enum Status {
+  Success = "SUCCESS",
+  Failure = "FAILURE",
+}
+
+let status: Status = Status.Success;
+
+---------------------------------------------------------------
+
+6. Union and Intersection Types
+
+Union Types:
+
+let value: string | number;
+value = "Hello";
+value = 42;
+
+
+Intersection Types:
+
+interface Admin {
+  name: string;
+  privileges: string[];
+}
+
+interface Employee {
+  name: string;
+  startDate: Date;
+}
+
+type ElevatedEmployee = Admin & Employee;
+
+-------------------------------------------------------------
+
+7. Classes
+
+Defining Classes:
+
+class Animal {
+  name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  makeSound(): void {
+    console.log(`${this.name} makes a sound`);
+  }
+}
+
+const dog = new Animal("Dog");
+dog.makeSound();
+
+
+Access Modifiers and Readonly Properties:
+
+class Person {
+  private id: number;
+  protected age: number;
+  public name: string;
+  readonly birthYear: number;
+
+  constructor(id: number, name: string, birthYear: number) {
+    this.id = id;
+    this.name = name;
+    this.birthYear = birthYear;
+  }
+}
+
+
+Getters and Setters:
+
+class Circle {
+  private _radius: number;
+
+  constructor(radius: number) {
+    this._radius = radius;
+  }
+
+  get radius(): number {
+    return this._radius;
+  }
+
+  set radius(value: number) {
+    if (value > 0) {
+      this._radius = value;
+    }
+  }
+}
+
+--------------------------------------------------------
+
+8. Generics
+
+Generic Functions:
+
+function identity<T>(value: T): T {
+  return value;
+}
+
+let num = identity<number>(42);
+let str = identity<string>("Hello");
+
+
+Generic Constraints:
+
+function logLength<T extends { length: number }>(value: T): void {
+  console.log(value.length);
+}
+
+logLength("Hello");
+logLength([1, 2, 3]);
+
+-------------------------------------------------------------------
+
+9. Modules
+
+Importing and Exporting:
+
+File: mathUtils.ts
+
+export function add(a: number, b: number): number {
+  return a + b;
+}
+
+
+File: main.ts
+
+import { add } from "./mathUtils";
+console.log(add(2, 3));
+
+---------------------------------------------------------
+
+10. Type Guards
+
+function isString(value: unknown): value is string {
+  return typeof value === "string";
+}
+
+if (isString(value)) {
+  console.log(value.toUpperCase());
+}
+
+-----------------------------------------------------------------
+
+11. Tooling
+
+Setting up with Frameworks:
+
+React: npx create-react-app my-app --template typescript.
+
+Node.js: Install ts-node for running TypeScript files directly.
+
+Using npm or yarn:
+Install TypeScript as a development dependency:
+
+npm install typescript --save-dev
+
+
+
+
+
+
+
+
+
+
+

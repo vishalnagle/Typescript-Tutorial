@@ -1,0 +1,277 @@
+These are the advanced important topics in typescript:
+
+1. Advanced Types
+
+a. Mapped Types
+Mapped types allow you to create new types by transforming existing ones.
+
+Partial: Makes all properties optional.
+
+interface User {
+  name: string;
+  age: number;
+}
+type PartialUser = Partial<User>; // { name?: string; age?: number }
+
+
+Required: Makes all properties required.
+
+type RequiredUser = Required<PartialUser>; // { name: string; age: number }
+
+
+Readonly: Makes properties immutable
+
+type ReadonlyUser = Readonly<User>; // { readonly name: string; readonly age: number }
+
+
+Pick: Picks specific properties.
+
+type PickedUser = Pick<User, "name">; // { name: string }
+
+
+Record: Creates an object type with specified keys and values
+
+type UserRoles = Record<"admin" | "editor", User>;
+
+
+b. Conditional Types
+
+Allows you to define types based on conditions.
+
+type IsString<T> = T extends string ? "Yes" : "No";
+type Result = IsString<"hello">; // "Yes"
+
+
+c. Index Types
+
+Used to get keys or values of an object type.
+
+keyof: Gets the keys.
+
+type Keys = keyof User; // "name" | "age"
+
+typeof: Gets the type of a value.
+
+const user = { name: "John", age: 30 };
+type UserType = typeof user; // { name: string; age: number }
+
+
+-----------------------------------------------------------------------------------------
+
+
+2. Utility Types
+
+Utility types are pre-defined types to simplify common transformations.
+
+Common Examples:
+
+Omit: Excludes specified keys.
+
+type OmittedUser = Omit<User, "age">; // { name: string }
+
+
+Exclude: Excludes types from a union.
+
+type Excluded = Exclude<"a" | "b" | "c", "b">; // "a" | "c"
+
+
+Extract: Extracts types from a union.
+
+type Extracted = Extract<"a" | "b" | "c", "b">; // "b"
+
+
+NonNullable: Removes null and undefined.
+
+type NonNull = NonNullable<string | null | undefined>; // string
+
+
+----------------------------------------------------------------------------------------------
+
+
+3. Advanced Generics
+
+Generics are placeholders for types.
+
+Higher-order Generics:
+Generics that accept other generics.
+
+function wrap<T>(value: T): { value: T } {
+  return { value };
+}
+const wrapped = wrap(42); // { value: 42 }
+
+
+Recursive Generics:
+Used for deeply nested structures.
+
+type NestedArray<T> = T | NestedArray<T>[];
+const arr: NestedArray<number> = [1, [2, [3]]];
+
+
+Generic Constraints:
+Restrict what a generic can accept.
+
+function getLength<T extends { length: number }>(item: T): number {
+  return item.length;
+}
+getLength("hello"); // 5
+
+
+--------------------------------------------------------------------------------------------------
+
+
+4. Type Inference
+
+TypeScript guesses the type when not explicitly defined.
+
+Example:
+
+let num = 10; // TypeScript infers 'number'
+const add = (a = 5) => a + 1; // infers return type as 'number'
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+5. Decorators
+
+Decorators are special functions applied to classes, methods, or properties.
+
+Class Decorator:
+
+function Logger(constructor: Function) {
+  console.log(`Class ${constructor.name} was created`);
+}
+@Logger
+class MyClass {}
+
+Property Decorator:
+
+function ReadOnly(target: any, propertyKey: string) {
+  Object.defineProperty(target, propertyKey, { writable: false });
+}
+class User {
+  @ReadOnly
+  name = "John";
+}
+
+--------------------------------------------------------------------------------------------------------------------
+
+6. Type Narrowing
+
+Type narrowing refines the type during runtime checks.
+
+Discriminated Unions:
+
+type Shape = { kind: "circle"; radius: number } | { kind: "square"; side: number };
+function area(shape: Shape) {
+  if (shape.kind === "circle") return Math.PI * shape.radius ** 2;
+  return shape.side ** 2;
+}
+
+
+Exhaustiveness Check:
+
+function exhaustiveCheck(x: never): never {
+  throw new Error(`Unhandled case: ${x}`);
+}
+
+
+-------------------------------------------------------------------------------------------------------------
+
+7. Module Augmentation
+
+Declaration Merging:
+
+declare module "my-lib" {
+  interface Config {
+    debug: boolean;
+  }
+}
+
+
+--------------------------------------------------------------------------------------------------
+
+
+8. Configuration and Build
+
+tsconfig.json Optimizations
+
+strict: Enables all strict type-checking options.
+baseUrl and paths: Simplifies module imports.
+
+-----------------------------------------------------------------------------------------------------------
+
+9. Interoperability
+
+Using JavaScript libraries in TypeScript:
+
+declare function myFunction(input: string): string;
+
+
+------------------------------------------------------------------------------------------------------------
+
+10. Type-Safe APIs
+
+Designing APIs with TypeScript ensures clients follow correct data contracts.
+
+Example with REST:
+
+type APIResponse = { data: string; status: number };
+function fetchData(): Promise<APIResponse> {
+  return fetch("/api").then((res) => res.json());
+}
+
+
+--------------------------------------------------------------------------------------------------------------------
+
+11. Working with Frameworks
+React with TypeScript:
+
+type Props = { title: string };
+const Component: React.FC<Props> = ({ title }) => <h1>{title}</h1>;
+
+
+-----------------------------------------------------------------------------------------------------------------------
+
+12. Performance Optimization
+Reducing Compile Times:
+Split large type definitions into smaller modules.
+
+
+----------------------------------------------------------------------------------------------------------------------------
+
+13. Testing
+
+Typing Mocks in Jest:
+
+const mockFn = jest.fn<(name: string) => number>();
+mockFn("John");
+
+
+----------------------------------------------------------------------------------------------------------------------------
+
+14. Error Handling
+
+Using unknown instead of any for better safety.
+
+function handleError(error: unknown) {
+  if (error instanceof Error) console.log(error.message);
+}
+
+
+------------------------------------------------------------------------------------------------------------------
+
+15. Migrating to TypeScript
+
+Start with --allowJs to support JS files and gradually convert.
+
+
+
+
+
+
+
+
+
+
